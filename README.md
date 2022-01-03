@@ -1,15 +1,15 @@
 # MLT
 #
-# ASP.NET Core C# Application built using MVC Design pattern and Singleton (OR OTHER). 
+ASP.NET Core C# Application built using MVC Design pattern and Singleton (OR OTHER). 
 #
-# This application is a CRUD app. 
+This application is a CRUD app. 
 #
-# Create 
+Create 
 #
-# Read  
+Read  
 #
-# Update 
+Update 
 #
-# Delete 
+Delete 
 #
-# ASP Active Server Pages - Dynamic Web Pages typically with database connection.
+ASP Active Server Pages - Dynamic Web Pages typically with database connection.
