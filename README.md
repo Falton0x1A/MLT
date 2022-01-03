@@ -1,7 +1,5 @@
 # MLT
-#
 ASP.NET Core C# Application built using MVC Design pattern and Singleton (OR OTHER). 
-#
 This application is a CRUD app. 
 #
 Create 
