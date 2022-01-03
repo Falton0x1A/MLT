@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using MLT.Models;
 
 namespace MLT.Data
 {
@@ -12,5 +13,6 @@ namespace MLT.Data
             : base(options)
         {
         }
+        public DbSet<MLT.Models.Aircraft> Aircraft { get; set; }
     }
 }
