@@ -46,7 +46,14 @@ namespace MLT.Controllers
 
         // GET: Aircraft/Create
 
-        [Authorize]
+        [Authorize(Roles = "Admin, AnotherRole")]
+        public class AdminController : Controller
+        {
+            public ActionResult Index()
+            {
+                return View();
+            }
+        }
         public IActionResult Create()
         {
             return View();
@@ -55,6 +62,7 @@ namespace MLT.Controllers
         // POST: Aircraft/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,AircraftType,AircraftIdent,AircraftState")] Aircraft aircraft)
@@ -89,6 +97,7 @@ namespace MLT.Controllers
         // POST: Aircraft/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,AircraftType,AircraftIdent,AircraftState")] Aircraft aircraft)
@@ -144,6 +153,7 @@ namespace MLT.Controllers
         // POST: Aircraft/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var aircraft = await _context.Aircraft.FindAsync(id);
