@@ -21,14 +21,14 @@ namespace MLT.Controllers
         }
 
         // GET: Flights
-        [Authorize(Roles = "Admin, StaffMember, Client")]
+        [Authorize]
         public async Task<IActionResult> Index()
         {
             return View(await _context.Flight.ToListAsync());
         }
 
         // GET: Flights/Details/5
-        [Authorize(Roles = "Admin, StaffMember, Client")]
+        [Authorize]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -58,7 +58,7 @@ namespace MLT.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin, StaffMember")]
+        //[Authorize(Roles = "Admin, StaffMember")]
         public async Task<IActionResult> Create([Bind("Id,FlightID,Origin,Destination")] Flight flight) // Added FlightID as per update
         {
             if (ModelState.IsValid)

@@ -21,14 +21,14 @@ namespace MLT.Controllers
         }
 
         // GET: Aircraft
-        [Authorize(Roles = "Admin, StaffMember, Client")]
+        [Authorize]
         public async Task<IActionResult> Index()
         {
             return View(await _context.Aircraft.ToListAsync());
         }
 
         // GET: Aircraft/Details/5
-        [Authorize(Roles = "Admin, StaffMember, Client")]
+        [Authorize]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
