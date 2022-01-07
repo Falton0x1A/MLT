@@ -47,7 +47,7 @@ namespace MLT.Controllers
         }
 
         // GET: Flights/Create
-        [Authorize(Roles = "Admin, StaffMember")]
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             return View();
@@ -58,7 +58,6 @@ namespace MLT.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        //[Authorize(Roles = "Admin, StaffMember")]
         public async Task<IActionResult> Create([Bind("Id,FlightID,Origin,Destination")] Flight flight) // Added FlightID as per update
         {
             if (ModelState.IsValid)
@@ -72,7 +71,7 @@ namespace MLT.Controllers
 
         // GET: Flights/Edit/5
 
-        [Authorize(Roles = "Admin, StaffMember")]
+        [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -93,7 +92,7 @@ namespace MLT.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin, StaffMember")]
+        [Authorize]
         public async Task<IActionResult> Edit(int id, [Bind("Id,FlightID,Origin,Destination")] Flight flight)
         {
             if (id != flight.Id)
@@ -126,7 +125,7 @@ namespace MLT.Controllers
 
         // GET: Flights/Delete/5
 
-        [Authorize(Roles = "Admin, StaffMember")]
+        [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -147,7 +146,7 @@ namespace MLT.Controllers
         // POST: Flights/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin, StaffMember")]
+        [Authorize]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var flight = await _context.Flight.FindAsync(id);
