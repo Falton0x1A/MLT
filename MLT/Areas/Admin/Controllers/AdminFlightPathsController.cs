@@ -4,31 +4,29 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using MLT.Data;
 using MLT.Models;
 
-namespace MLT.Controllers
+namespace MLT.Areas.Admin.Controllers
 {
-    public class FlightsController : Controller
+    [Area("Admin")]
+    public class AdminFlightPathsController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public FlightsController(ApplicationDbContext context)
+        public AdminFlightPathsController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: FlightPath
-        [Authorize]
+        // GET: Admin/AdminFlightPaths
         public async Task<IActionResult> Index()
         {
             return View(await _context.FlightPath.ToListAsync());
         }
 
-        // GET: FlightPath/Details/5
-        [Authorize]
+        // GET: Admin/AdminFlightPaths/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -36,42 +34,39 @@ namespace MLT.Controllers
                 return NotFound();
             }
 
-            var flight = await _context.FlightPath
+            var flightPath = await _context.FlightPath
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (flight == null)
+            if (flightPath == null)
             {
                 return NotFound();
             }
 
-            return View(flight);
+            return View(flightPath);
         }
 
-        // GET: FlightPath/Create
-        [Authorize(Roles = "Admin, StaffMember")]
+        // GET: Admin/AdminFlightPaths/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: FlightPath/Create
+        // POST: Admin/AdminFlightPaths/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,FlightID,Origin,Destination")] FlightPath flight) // Added FlightID as per update
+        public async Task<IActionResult> Create([Bind("Id,FlightID,Origin,Destination")] FlightPath flightPath)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(flight);
+                _context.Add(flightPath);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(flight);
+            return View(flightPath);
         }
 
-        // GET: FlightPath/Edit/5
-
-        [Authorize(Roles = "Admin, StaffMember")]
+        // GET: Admin/AdminFlightPaths/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -79,24 +74,22 @@ namespace MLT.Controllers
                 return NotFound();
             }
 
-            var flight = await _context.FlightPath.FindAsync(id);
-            if (flight == null)
+            var flightPath = await _context.FlightPath.FindAsync(id);
+            if (flightPath == null)
             {
                 return NotFound();
             }
-            return View(flight);
+            return View(flightPath);
         }
 
-        // POST: FlightPath/Edit/5
+        // POST: Admin/AdminFlightPaths/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize]
-        [Authorize(Roles = "Admin, StaffMember")]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,FlightID,Origin,Destination")] FlightPath flight)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,FlightID,Origin,Destination")] FlightPath flightPath)
         {
-            if (id != flight.Id)
+            if (id != flightPath.Id)
             {
                 return NotFound();
             }
@@ -105,12 +98,12 @@ namespace MLT.Controllers
             {
                 try
                 {
-                    _context.Update(flight);
+                    _context.Update(flightPath);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!FlightExists(flight.Id))
+                    if (!FlightPathExists(flightPath.Id))
                     {
                         return NotFound();
                     }
@@ -121,12 +114,10 @@ namespace MLT.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(flight);
+            return View(flightPath);
         }
 
-        // GET: Flights/Delete/5
-
-        [Authorize(Roles = "Admin")]
+        // GET: Admin/AdminFlightPaths/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -134,29 +125,28 @@ namespace MLT.Controllers
                 return NotFound();
             }
 
-            var flight = await _context.FlightPath
+            var flightPath = await _context.FlightPath
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (flight == null)
+            if (flightPath == null)
             {
                 return NotFound();
             }
 
-            return View(flight);
+            return View(flightPath);
         }
 
-        // POST: FlightPath/Delete/5
+        // POST: Admin/AdminFlightPaths/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var flight = await _context.FlightPath.FindAsync(id);
-            _context.FlightPath.Remove(flight);
+            var flightPath = await _context.FlightPath.FindAsync(id);
+            _context.FlightPath.Remove(flightPath);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool FlightExists(int id)
+        private bool FlightPathExists(int id)
         {
             return _context.FlightPath.Any(e => e.Id == id);
         }

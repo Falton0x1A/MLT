@@ -33,6 +33,7 @@ namespace MLT
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
         }
@@ -58,9 +59,20 @@ namespace MLT
 
             app.UseAuthentication();
             app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
             {
+                // Adding below for Admin MVC area
+                endpoints.MapControllerRoute(
+                  name: "Admin",
+                  pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+                );
+                // End of code added
+                // Adding below for Staff MVC area
+                endpoints.MapControllerRoute(
+                  name: "StaffMember",
+                  pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+                );
+                // End of code added
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");

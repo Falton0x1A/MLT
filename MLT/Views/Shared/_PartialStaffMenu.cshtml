@@ -1,0 +1,18 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using MLT.Data
+
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+<ul class="navbar-nav">
+    @if (SignInManager.IsSignedIn(User) && await UserManager.IsInRoleAsync(UserManager.GetUserAsync(User).Result, "StaffMember"))
+    {
+        <li class="nav-item" dropdown show">
+            <a class="dropdown-toggle btn btn-outline-secondary btn-sm mr-1" href="#" data-toggle="dropdown">Staff-Menu</a>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" asp-area="StaffMember" asp-controller="StaffMemberFlightPaths" asp-action="Index">FlightPaths</a>
+                <a class="dropdown-item" asp-area="StaffMember" asp-controller="StaffMemberAircraft" asp-action="Index">Aircraft</a>
+            </div>
+        </li>
+    }
+</ul>

@@ -46,121 +46,121 @@ namespace MLT.Controllers
             return View(aircraft);
         }
 
-        // GET: Aircraft/Create
+                // GET: Aircraft/Create
 
-        [Authorize]
-        //public class AdminController : Controller
-        //{
-        //
-        //}
-        public IActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Aircraft/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,AircraftType,AircraftIdent,AircraftState")] Aircraft aircraft)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(aircraft);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(aircraft);
-        }
-
-        // GET: Aircraft/Edit/5
-
-        [Authorize]
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var aircraft = await _context.Aircraft.FindAsync(id);
-            if (aircraft == null)
-            {
-                return NotFound();
-            }
-            return View(aircraft);
-        }
-
-        // POST: Aircraft/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,AircraftType,AircraftIdent,AircraftState")] Aircraft aircraft)
-        {
-            if (id != aircraft.Id)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
+                [Authorize(Roles ="Admin, StaffMember")]
+                public IActionResult Create()
                 {
-                    _context.Update(aircraft);
-                    await _context.SaveChangesAsync();
+                    return View();
                 }
-                catch (DbUpdateConcurrencyException)
+
+                // POST: Aircraft/Create
+                // To protect from overposting attacks, enable the specific properties you want to bind to.
+                // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+                [HttpPost]
+                [ValidateAntiForgeryToken]
+                [Authorize(Roles ="Admin, StaffMember")]
+                public async Task<IActionResult> Create([Bind("Id,AircraftType,AircraftIdent,AircraftState")] Aircraft aircraft)
                 {
-                    if (!AircraftExists(aircraft.Id))
+                    if (ModelState.IsValid)
+                    {
+                        _context.Add(aircraft);
+                        await _context.SaveChangesAsync();
+                        return RedirectToAction(nameof(Index));
+                    }
+                    return View(aircraft);
+                }
+
+                // GET: Aircraft/Edit/5
+
+                [Authorize(Roles ="Admin, StaffMember")]
+                public async Task<IActionResult> Edit(int? id)
+                {
+                    if (id == null)
                     {
                         return NotFound();
                     }
-                    else
+
+                    var aircraft = await _context.Aircraft.FindAsync(id);
+                    if (aircraft == null)
                     {
-                        throw;
+                        return NotFound();
                     }
+                    return View(aircraft);
                 }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(aircraft);
-        }
 
-        // GET: Aircraft/Delete/5
+                // POST: Aircraft/Edit/5
+                // To protect from overposting attacks, enable the specific properties you want to bind to.
+                // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+                [HttpPost]
+                [ValidateAntiForgeryToken]
+                [Authorize(Roles ="Admin, StaffMember")]
+                public async Task<IActionResult> Edit(int id, [Bind("Id,AircraftType,AircraftIdent,AircraftState")] Aircraft aircraft)
+                {
+                    if (id != aircraft.Id)
+                    {
+                        return NotFound();
+                    }
 
-        [Authorize]
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
+                    if (ModelState.IsValid)
+                    {
+                        try
+                        {
+                            _context.Update(aircraft);
+                            await _context.SaveChangesAsync();
+                        }
+                        catch (DbUpdateConcurrencyException)
+                        {
+                            if (!AircraftExists(aircraft.Id))
+                            {
+                                return NotFound();
+                            }
+                            else
+                            {
+                                throw;
+                            }
+                        }
+                        return RedirectToAction(nameof(Index));
+                    }
+                    return View(aircraft);
+                }
 
-            var aircraft = await _context.Aircraft
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (aircraft == null)
-            {
-                return NotFound();
-            }
+        
+                // GET: Aircraft/Delete/5
 
-            return View(aircraft);
-        }
+                [Authorize(Roles = "Admin")]
+                public async Task<IActionResult> Delete(int? id)
+                {
+                    if (id == null)
+                    {
+                        return NotFound();
+                    }
 
-        // POST: Aircraft/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var aircraft = await _context.Aircraft.FindAsync(id);
-            _context.Aircraft.Remove(aircraft);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
+                    var aircraft = await _context.Aircraft
+                        .FirstOrDefaultAsync(m => m.Id == id);
+                    if (aircraft == null)
+                    {
+                        return NotFound();
+                    }
 
-        private bool AircraftExists(int id)
-        {
-            return _context.Aircraft.Any(e => e.Id == id);
-        }
+                    return View(aircraft);
+                }
+
+                // POST: Aircraft/Delete/5
+                [HttpPost, ActionName("Delete")]
+                [ValidateAntiForgeryToken]
+                [Authorize(Roles = "Admin")]
+                public async Task<IActionResult> DeleteConfirmed(int id)
+                {
+                    var aircraft = await _context.Aircraft.FindAsync(id);
+                    _context.Aircraft.Remove(aircraft);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+
+                private bool AircraftExists(int id)
+                {
+                    return _context.Aircraft.Any(e => e.Id == id);
+                }
     }
 }
