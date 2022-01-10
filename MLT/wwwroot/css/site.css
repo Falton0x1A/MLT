@@ -13,10 +13,16 @@ a {
 }
 
 .btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+    transition-duration: 0.4s;
 }
+
+.btn-primary:hover {
+   background-color: #4CAF50; /* Green */
+   color: white;
+   }
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
     color: #fff;

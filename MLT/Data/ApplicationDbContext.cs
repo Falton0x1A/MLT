@@ -14,6 +14,6 @@ namespace MLT.Data
         {
         }
         public DbSet<MLT.Models.Aircraft> Aircraft { get; set; }
-        public DbSet<MLT.Models.Flight> Flight { get; set; }
+        public DbSet<MLT.Models.FlightPath> FlightPath { get; set; }
     }
 }

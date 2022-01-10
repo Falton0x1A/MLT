@@ -2,17 +2,17 @@
 
 namespace MLT.Data.Migrations
 {
-    public partial class Flights : Migration
+    public partial class FlightPath : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Flight",
+                name: "FlightPath",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    FlightID = table.Column<string>(type: "nvarchar(max)", nullable: true), // Added for posterity
+                    FlightID = table.Column<string>(type: "nvarchar(max)", nullable: true), // Added if required for re-creation
                     Origin = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Destination = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
@@ -25,7 +25,7 @@ namespace MLT.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Flight");
+                name: "FlightPath");
         }
     }
 }

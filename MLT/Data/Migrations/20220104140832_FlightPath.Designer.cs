@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MLT.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220104140832_Flights")]
-    partial class Flights
+    [Migration("20220104140832_FlightPath")]
+    partial class FlightPath
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -42,7 +42,7 @@ namespace MLT.Data.Migrations
                     b.ToTable("Aircraft");
                 });
 
-            modelBuilder.Entity("MLT.Models.Flight", b =>
+            modelBuilder.Entity("MLT.Models.FlightPath", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -57,7 +57,7 @@ namespace MLT.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Flight");
+                    b.ToTable("FlightPath");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

@@ -20,14 +20,14 @@ namespace MLT.Controllers
             _context = context;
         }
 
-        // GET: Flights
+        // GET: FlightPath
         [Authorize]
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Flight.ToListAsync());
+            return View(await _context.FlightPath.ToListAsync());
         }
 
-        // GET: Flights/Details/5
+        // GET: FlightPath/Details/5
         [Authorize]
         public async Task<IActionResult> Details(int? id)
         {
@@ -36,7 +36,7 @@ namespace MLT.Controllers
                 return NotFound();
             }
 
-            var flight = await _context.Flight
+            var flight = await _context.FlightPath
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (flight == null)
             {
@@ -46,19 +46,19 @@ namespace MLT.Controllers
             return View(flight);
         }
 
-        // GET: Flights/Create
+        // GET: FlightPath/Create
         [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Flights/Create
+        // POST: FlightPath/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,FlightID,Origin,Destination")] Flight flight) // Added FlightID as per update
+        public async Task<IActionResult> Create([Bind("Id,FlightID,Origin,Destination")] FlightPath flight) // Added FlightID as per update
         {
             if (ModelState.IsValid)
             {
@@ -69,7 +69,7 @@ namespace MLT.Controllers
             return View(flight);
         }
 
-        // GET: Flights/Edit/5
+        // GET: FlightPath/Edit/5
 
         [Authorize]
         public async Task<IActionResult> Edit(int? id)
@@ -79,7 +79,7 @@ namespace MLT.Controllers
                 return NotFound();
             }
 
-            var flight = await _context.Flight.FindAsync(id);
+            var flight = await _context.FlightPath.FindAsync(id);
             if (flight == null)
             {
                 return NotFound();
@@ -87,13 +87,13 @@ namespace MLT.Controllers
             return View(flight);
         }
 
-        // POST: Flights/Edit/5
+        // POST: FlightPath/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,FlightID,Origin,Destination")] Flight flight)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,FlightID,Origin,Destination")] FlightPath flight)
         {
             if (id != flight.Id)
             {
@@ -133,7 +133,7 @@ namespace MLT.Controllers
                 return NotFound();
             }
 
-            var flight = await _context.Flight
+            var flight = await _context.FlightPath
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (flight == null)
             {
@@ -143,21 +143,21 @@ namespace MLT.Controllers
             return View(flight);
         }
 
-        // POST: Flights/Delete/5
+        // POST: FlightPath/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         [Authorize]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var flight = await _context.Flight.FindAsync(id);
-            _context.Flight.Remove(flight);
+            var flight = await _context.FlightPath.FindAsync(id);
+            _context.FlightPath.Remove(flight);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool FlightExists(int id)
         {
-            return _context.Flight.Any(e => e.Id == id);
+            return _context.FlightPath.Any(e => e.Id == id);
         }
     }
 }

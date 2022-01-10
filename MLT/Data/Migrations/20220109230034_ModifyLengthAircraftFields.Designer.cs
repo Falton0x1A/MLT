@@ -4,14 +4,16 @@ using MLT.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MLT.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220109230034_ModifyLengthAircraftFields")]
+    partial class ModifyLengthAircraftFields
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -43,7 +45,7 @@ namespace MLT.Data.Migrations
                     b.ToTable("Aircraft");
                 });
 
-            modelBuilder.Entity("MLT.Models.FlightPath", b =>
+            modelBuilder.Entity("MLT.Models.Flight", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -51,20 +53,17 @@ namespace MLT.Data.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Destination")
-                        .HasMaxLength(56)
-                        .HasColumnType("nvarchar(56)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FlightID")
-                        .HasMaxLength(6)
-                        .HasColumnType("nvarchar(6)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Origin")
-                        .HasMaxLength(56)
-                        .HasColumnType("nvarchar(56)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("FlightPath");
+                    b.ToTable("Flight");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
