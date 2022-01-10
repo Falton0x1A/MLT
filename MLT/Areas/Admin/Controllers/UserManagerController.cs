@@ -30,5 +30,14 @@ namespace MLT.Areas.Admin.Controllers
             }
             return RedirectToAction("Index");
         }
+        [HttpPost]
+        public async Task<IActionResult> DelUser(string userName)
+        {
+            if (userName != null)
+            {
+                await _userManager.CreateAsync(new IdentityUser(userName.Trim()));
+            }
+            return RedirectToAction("Index");
+        }
     }
 }

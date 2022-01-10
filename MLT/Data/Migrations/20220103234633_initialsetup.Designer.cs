@@ -11,7 +11,7 @@ namespace MLT.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     [Migration("20220103234633_initialsetup")]
-    partial class initialsetup
+    partial class Initialsetup
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

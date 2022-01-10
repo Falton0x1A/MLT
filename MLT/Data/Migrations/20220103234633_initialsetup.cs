@@ -2,7 +2,7 @@
 
 namespace MLT.Data.Migrations
 {
-    public partial class initialsetup : Migration
+    public partial class Initialsetup : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
