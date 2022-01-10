@@ -1,9 +1,9 @@
 ﻿@model List<Microsoft.AspNetCore.Identity.IdentityUser>
 @{
-    ViewData["Title"] = "User Manager";
+    ViewData["Title"] = "User_Manager";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<h1>Role Manager</h1>
+<h1>User Manager</h1>
 <form method="post" asp-action="AddUser" asp-controller="UserManager">
     <div class="input-group">
         <input name="userName" class="form-control w-25">
@@ -16,16 +16,24 @@
     <thead>
         <tr>
             <th>Id</th>
-            <th>Role</th>
+            <th>UserName</th>
+            <th>Has TwoFactor?</th>
+            <th>Is Protected?</th>
+            <th>Lockout End</th>
+            <th>Failed Attemps</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var user in Model)
         {
-            <tr>
-                <td>@user.Id</td>
-                <td>@user.UserName</td>
-            </tr>
+        <tr>
+            <td>@user.Id</td>
+            <td>@user.UserName</td>
+            <td>@user.TwoFactorEnabled</td>
+            <td>@user.LockoutEnabled</td>
+            <td>@user.LockoutEnd</td>
+            <td>@user.AccessFailedCount</td>
+        </tr>
         }
     </tbody>
 </table>

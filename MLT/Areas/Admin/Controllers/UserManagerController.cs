@@ -8,10 +8,11 @@ using System.Threading.Tasks;
 
 namespace MLT.Areas.Admin.Controllers
 {
-    public class UsersController : Controller
+    [Area("Admin")]
+    public class UserManager : Controller
     {
         private readonly UserManager<IdentityUser> _userManager;
-        public UsersController(UserManager<IdentityUser> userManager)
+        public UserManager(UserManager<IdentityUser> userManager)
         {
             _userManager = userManager;
         }

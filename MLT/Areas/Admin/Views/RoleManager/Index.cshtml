@@ -1,9 +1,10 @@
-﻿@model List<Microsoft.AspNetCore.Identity.IdentityRole>
+﻿
+<h1>Role Manager</h1>
+@model List<Microsoft.AspNetCore.Identity.IdentityRole>
 @{
-    ViewData["Title"] = "Role Manager";
+    ViewData["Title"] = "Role_Manager";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<h1>Role Manager</h1>
 <form method="post" asp-action="AddRole" asp-controller="RoleManager">
     <div class="input-group">
         <input name="roleName" class="form-control w-25">
@@ -17,15 +18,17 @@
         <tr>
             <th>Id</th>
             <th>Role</th>
+            <th>Concurrency Stamp</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var role in Model)
         {
-            <tr>
-                <td>@role.Id</td>
-                <td>@role.Name</td>
-            </tr>
+        <tr>
+            <td>@role.Id</td>
+            <td>@role.Name</td>
+            <td>@role.ConcurrencyStamp</td>
+        </tr>
         }
     </tbody>
 </table>
